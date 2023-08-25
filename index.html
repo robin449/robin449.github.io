@@ -1,0 +1,211 @@
+<html>
+    <head>
+        <title>時尚隨機箱 | Maplestory Surprise Style Box</title>
+
+        <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="icon" href="Images/MagicHat.ico" type="image/x-icon">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <style>
+        .scroll{
+            overflow-y: auto;
+        }
+        li{
+            list-style: none;
+        }
+        </style>
+    </head>
+    <body>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        
+        <script type="module">
+            const { createApp, ref } = Vue
+            
+            createApp({
+                setup() {
+                    const nums = ref(0)
+                    const nums_ = ref(0)
+
+                    const array = ref(["透明帽", "透明面具", "透明眼部裝飾", "透明鞋子", "透明耳環", "透明手套", "透明披風", "通用美髮券", 
+                                    "通用整形券", "通用高級美髮券", "通用高級整形券", "通用高級護膚券", "通用高級染髮券", 
+                                    "日拋隱形眼鏡", "超性能擴音器", "核心寶石1個交換券", "時裝神奇剪刀", 
+                                    "魔法修練生光環(A型)", "魔法修練生光環(B型)", "魔法修練生的校服(A型)", "魔法修練生的校服(B型)", 
+                                    "充滿魔力的神祕腳鏈", "蘊含魔力的神祕蝴蝶結腳鏈", "擁有魔力的證明", "魔法修練生的法杖", 
+                                    "祕密基地學生貝雷帽", "祕密基地學生髮箍", "祕密基地男校服", "祕密基地女校服", 
+                                    "祕密基地學生運動鞋", "秘密基地皮卡啾徽章", "秘密基地防身用鞋子", 
+                                    "楓之谷學院名牌戒指(A)", "楓之谷學院聊天戒指(B)", "楓之谷學院名牌戒指(A)", "楓之谷學院聊天戒指(B)"])
+                    const weights = ref([2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 3.08, 3.08, 2.64, 2.64, 7.93, 7.93, 8.81, 17.62, 17.62, 1.32, 0.6, 0.6, 0.5, 0.5, 0.6, 0.6, 0.7 , 0.5, 0.7, 0.7, 0.6, 0.6, 0.7, 0.7, 0.5, 0.7, 0.7, 0.7, 0.7])
+
+                    function open(a){
+                        if(nums.value < 1)
+                            return
+                        if(a == 0){
+                            let n = randomItem(array.value, distribution);
+                            let li = document.createElement("li")
+                            let li_ = document.createElement("li")
+                            li.textContent = "恭喜從時尚隨機箱獲得"
+                            li_.textContent = array.value[n]
+                            li.innerHTML += '<p style="display: inline; color: #9F35FF"> ' + li_.textContent + '</p>'
+                            if(n > 16)
+                                li.style.backgroundColor = "#FFD306"
+                            document.getElementById("messageBox").appendChild(li)
+                            document.getElementById("messageBox").scrollTop = document.getElementById("messageBox").scrollHeight
+                            nums.value--
+                            nums_.value++
+                        }
+                        else if(a == 1){
+                            while(nums.value > 0){
+                                let n = randomItem(array.value, distribution);
+                                let li = document.createElement("li")
+                                let li_ = document.createElement("li")
+                                li.textContent = "恭喜從時尚隨機箱獲得"
+                                li_.textContent = array.value[n]
+                                li.innerHTML += '<p style="display: inline; color: #9F35FF"> ' + li_.textContent + '</p>'
+                                if(n > 16)
+                                    li.style.backgroundColor = "#FFD306"
+                                document.getElementById("messageBox").appendChild(li)
+                                document.getElementById("messageBox").scrollTop = document.getElementById("messageBox").scrollHeight
+                                nums.value--
+                                nums_.value++
+                            }
+                        }
+                    }
+
+                    const createDistribution = (weights, size) => {
+                        const distribution = []
+                        const sum = weights.reduce((a, b) => a + b)
+                        const quant = size / sum
+                        for (let i = 0; i < weights.length; ++i) {
+                            const limit = quant * weights[i]
+                            for (let j = 0; j < limit; ++j) {
+                                distribution.push(i)
+                            }
+                        }
+                        return distribution
+                    };
+
+                    const randomIndex = (distribution) => {
+                        const index = Math.floor(distribution.length * Math.random())
+                        return distribution[index]
+                    };
+
+                    const randomItem = (array, distribution) => {
+                        const index = randomIndex(distribution)
+                        return index
+                    };
+
+                    const distribution = createDistribution(weights.value, 3600000);
+
+                    let navInfoId = 0
+                    const navInfos = ref([
+                        { id: navInfoId++, text: 'Overview', url: 'index.html' },
+                    ])
+
+                    let shopId = 0
+                    const shopLists = ref([
+                        { id: shopId++, nums: 10, src: 'shop/1.png' },
+                        { id: shopId++, nums: 1, src: 'shop/2.png' },
+                    ])
+
+                    let shopInfoId = 0
+                    const shopInfos = ref([
+                        { id: shopInfoId++, src: 'main/1.png' },
+                        { id: shopInfoId++, src: 'main/2.png' },
+                        { id: shopInfoId++, src: 'main/3.png' },
+                        { id: shopInfoId++, src: 'main/4.png' },
+                        { id: shopInfoId++, src: 'main/5.png' },
+                        { id: shopInfoId++, src: 'main/6.png' },
+                        { id: shopInfoId++, src: 'main/7.png' },
+                        { id: shopInfoId++, src: 'main/8.png' },
+                        { id: shopInfoId++, src: 'main/9.png' },
+                        { id: shopInfoId++, src: 'main/10.png' },
+                        { id: shopInfoId++, src: 'main/11.png' },
+                        { id: shopInfoId++, src: 'main/12.png' },
+                        { id: shopInfoId++, src: 'main/13.png' },
+                        { id: shopInfoId++, src: 'main/14.png' },
+                        { id: shopInfoId++, src: 'main/15.png' },
+                        { id: shopInfoId++, src: 'main/16.png' },
+                        { id: shopInfoId++, src: 'main/17.png' },
+                        { id: shopInfoId++, src: 'main/18.png' },
+                        { id: shopInfoId++, src: 'main/19.png' },
+                        { id: shopInfoId++, src: 'main/20.png' },
+                        { id: shopInfoId++, src: 'main/21.png' },
+                        { id: shopInfoId++, src: 'main/22.png' },
+                        { id: shopInfoId++, src: 'main/23.png' },
+                        { id: shopInfoId++, src: 'main/24.png' },
+                        { id: shopInfoId++, src: 'main/25.png' },
+                        { id: shopInfoId++, src: 'main/26.png' },
+                        { id: shopInfoId++, src: 'main/27.png' },
+                        { id: shopInfoId++, src: 'main/28.png' },
+                        { id: shopInfoId++, src: 'main/29.png' },
+                        { id: shopInfoId++, src: 'main/30.png' },
+                        { id: shopInfoId++, src: 'main/31.png' },
+                        { id: shopInfoId++, src: 'main/32.png' },
+                        { id: shopInfoId++, src: 'main/33.png' },
+                        { id: shopInfoId++, src: 'main/34.png' },
+                        { id: shopInfoId++, src: 'main/35.png' },
+                        { id: shopInfoId++, src: 'main/36.png' },
+                        
+                    ])
+
+                    return {
+                        nums,
+                        nums_,
+                        open,
+                        navInfos,
+                        shopLists,
+                        shopInfos,
+                    }
+                }
+            }).mount('#app')
+        </script>
+            
+        <div id="app">
+            <br style="user-select:none;">
+            <!-- main -->
+            <div class="container">
+                <div class="row">
+                    <div class="card col-6 p-3" style="background-image: url('bg.png'); background-repeat: no-repeat; background-size: cover;">
+                        <div class="container">
+                            <div class="row">
+                                <div v-for="shopList in shopLists" :key="shopList.id" style="display: flex; justify-content: center; width: 125; height: 206; background-repeat: no-repeat; background-size: cover;" :style="{ backgroundImage: 'url(' + shopList.src + ')' }">
+                                    <button type="button" class="btn" @click="nums += shopList.nums" style="justify-content: center; align-content: center; position:absolute; top:190px; width: 91; height: 21; border:0px; --bs-btn-padding-y: .0rem; --bs-btn-padding-x: .0rem; --bs-btn-font-size: .75rem; background-image: url('shop/btn.png'); background-repeat: no-repeat; background-size: cover;">購買</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="card col-6" style="user-select:none;">
+                        <div class="card-body">
+                            <p>擁有時尚隨機箱：{{ nums }}</p> <p>已抽取時尚隨機箱：{{ nums_ }}</p> 
+                            <div class="row" style="height: 125; justify-content: center; align-content: center;">
+                                <button type="button" class="btn" @click="open(0)" style="justify-content: center; align-content: center; width: 91; height: 21; border:0px; --bs-btn-padding-y: .0rem; --bs-btn-padding-x: .0rem; --bs-btn-font-size: .75rem; background-image: url('shop/btn2.png'); background-repeat: no-repeat; background-size: cover; color: black;">抽取</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn" @click="open(1)" style="justify-content: center; align-content: center; width: 91; height: 21; border:0px; --bs-btn-padding-y: .0rem; --bs-btn-padding-x: .0rem; --bs-btn-font-size: .75rem; background-image: url('shop/btn3.png'); background-repeat: no-repeat; background-size: cover; color: aliceblue;">一鍵抽取</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card col-6 p-3 scroll" style="height: 410; background-image: url('bg.png'); background-repeat: no-repeat; background-size: cover;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3 p-2" v-for="shopInfo in shopInfos" :key="shopInfo.id" style="display: flex; justify-content: center; align-content: center;">
+                                    <img style="width: 100%; height: 100%; object-fit: cover; user-select:none; -webkit-user-drag:none" :src=shopInfo.src>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-6">
+                        <div class="card-body scroll" id="messageBox" style="height: 410;">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    </body>
+</html>
