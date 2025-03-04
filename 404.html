@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="0;url=/">
     <script>
-      // 如果是 /about 這類路徑，直接將請求交給 Vue Router 處理
       var path = window.location.pathname;
-      if (path !== "/") {
-        // 這裡會把 URL 重定向到正確的路由，並由 Vue Router 處理
-        window.location.replace(path);
+      if (path !== "/" && path !== "/index.html") {
+        window.location.replace("/" + path);
       }
     </script>
   </head>
