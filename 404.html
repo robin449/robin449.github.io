@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="0;url=/">
     <script>
-      window.location.href = "/" + window.location.pathname.substring(1);
+      var path = window.location.pathname;
+      if (path !== "/" && path !== "/index.html") {
+        window.location.replace("/#" + path);
+      }
     </script>
   </head>
   <body>
