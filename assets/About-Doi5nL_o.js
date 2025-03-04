@@ -1,1 +1,0 @@
-import{d as a,c as e,F as o,r as c,u as i,o as t,t as l}from"./index-MBm5-tKc.js";const m={class:"container my-4"},f=a({__name:"About",setup(u){const s=Array(15).fill("456");return(_,p)=>(t(),e("div",m,[(t(!0),e(o,null,c(i(s),(r,n)=>(t(),e("div",{key:n,class:"my-4"},l(r),1))),128))]))}});export{f as default};
